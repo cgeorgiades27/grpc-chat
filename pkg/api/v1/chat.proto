@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package chat.v1;
+option go_package="github.com/cgeorgiades27/grpc-chat/api/v1";
+
+service Chat {
+    rpc SendMessage(ChatRequest) returns (ChatResponse);
+    rpc StreamMessage(ChatRequest) returns (stream ChatResponse);
+}
+
+message ChatRequest {
+    string user_input = 1;
+}
+
+message ChatResponse {
+    string assistant_reply = 1;
+}
