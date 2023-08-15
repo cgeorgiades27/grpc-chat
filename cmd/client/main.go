@@ -32,7 +32,7 @@ func main() {
 	client := pb.NewChatClient(conn)
 	reader := bufio.NewReader(os.Stdin)
 
-	fmt.Println(" ---------- Welcome to ChatGPT CLI (model: GPT3Dot5Turbo) ---------- ")
+	fmt.Println(" ---------- Welcome to GPTerminal - ChatGPT CLI (model: GPT3Dot5Turbo) ---------- ")
 	fmt.Println("\ttype your question or 'exit' to quit")
 	for {
 		fmt.Print("~> ")
