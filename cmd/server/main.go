@@ -90,7 +90,7 @@ func (c chatserver) StreamMessage(req *pb.ChatRequest, stream pb.Chat_StreamMess
 			return status.Error(codes.Internal, err.Error())
 		}
 		// delay to better demonstrate stream
-		time.Sleep(time.Millisecond * 20)
+		time.Sleep(time.Millisecond * 15)
 	}
 
 	return nil

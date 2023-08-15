@@ -14,12 +14,18 @@ import (
 )
 
 var (
-	grpcSvrIp   = flag.String("grpc-server-host", "localhost", "destination host ip")
-	grpcSvrPort = flag.String("grpc-server-port", "50052", "destination host port")
+	grpcSvrIp       = flag.String("grpc-server-host", "localhost", "destination host ip")
+	grpcSvrPort     = flag.String("grpc-server-port", "50052", "destination host port")
+	streamResponses = flag.Bool("stream", false, "stream responses")
 )
 
 func main() {
 	flag.Parse()
+	resFunc := getResponseUnary
+	if *streamResponses {
+		resFunc = getResponseStream
+	}
+
 	conn, err := grpc.Dial(
 		*grpcSvrIp+":"+*grpcSvrPort,
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
@@ -42,8 +48,7 @@ func main() {
 			break
 		}
 
-		err := getResponseUnary(ctx, text, client)
-		// err := getResponseStream(ctx, text, client)
+		err := resFunc(ctx, text, client)
 		if err != nil {
 			fmt.Printf("error getting reply: %v", err)
 			continue
